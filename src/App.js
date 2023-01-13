@@ -10,6 +10,7 @@ function App() {
   const [listItems, setListItems] = useLocalStorage("react-todo.listItems", []);
   const [search, setNewSearch] = useState("");
   const [filteredCategories, setFilteredCategories] = useState(listItems);
+  const [category, setCategory] = useState();
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -26,6 +27,7 @@ function App() {
 
     if (value === "Alla") {
       setFilteredCategories(listItems);
+      setCategory(value);
     } else if (value === "Hushåll") {
       setFilteredCategories(
         listItems.filter((listItem) => {
@@ -35,6 +37,7 @@ function App() {
           return false;
         })
       );
+      setCategory(value);
     } else if (value === "Jobb") {
       setFilteredCategories(
         listItems.filter((listItem) => {
@@ -44,6 +47,7 @@ function App() {
           return false;
         })
       );
+      setCategory(value);
     } else if (value === "Studier") {
       setFilteredCategories(
         listItems.filter((listItem) => {
@@ -53,6 +57,7 @@ function App() {
           return false;
         })
       );
+      setCategory(value);
     } else if (value === "Fritid") {
       setFilteredCategories(
         listItems.filter((listItem) => {
@@ -62,6 +67,7 @@ function App() {
           return false;
         })
       );
+      setCategory(value);
     }
   };
 
@@ -76,9 +82,12 @@ function App() {
   const addListItem = (listItem) => {
     const id = Date.now();
     const newListItem = { id, ...listItem };
+
     setListItems([...listItems, newListItem]);
-    inputRef.current.checked = true;
-    setFilteredCategories([...listItems, newListItem]);
+
+    if (category === newListItem.category || inputRef.current.checked) {
+      setFilteredCategories([...filteredCategories, newListItem]);
+    }
   };
 
   //Delete ListItem
