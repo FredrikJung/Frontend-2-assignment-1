@@ -40,7 +40,7 @@ const AddForm = ({ onAdd }) => {
     <div className="add-form-box" onSubmit={onSubmit}>
       <label htmlFor="inputName">Ange aktivitetens namn</label>
       <input
-        maxLength={25}
+        maxLength={20}
         id="inputName"
         type="text"
         value={activityText}
